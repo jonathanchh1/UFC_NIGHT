@@ -6,4 +6,11 @@
     <string name="failture">retrofit failed</string>
     <string name="share">share</string>
     <string name="settings">settings</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
+    <string name="Event">event</string>
+    <string name="titleholders">titleholders</string>
+    <string name="media">media</string>
+    <string name="fighters">fighters</string>
+    <string name="news">news</string>
 </resources>

@@ -45,7 +45,7 @@ public class EventFragment extends Fragment {
     public ProgressBar progressBar;
     public ShareActionProvider mShareActionProvider;
 
-    public EventFragment(){
+    public EventFragment() {
         setHasOptionsMenu(true);
     }
 
@@ -80,7 +80,7 @@ public class EventFragment extends Fragment {
                 int statusCode = response.code();
                 List<UFCContent> items = response.body();
                 recyclerView.setAdapter(new UFCAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
-               progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
 
             }
 
@@ -91,7 +91,6 @@ public class EventFragment extends Fragment {
                 Log.d(TAG, "connection failed");
             }
         });
-
 
 
     }
@@ -107,7 +106,7 @@ public class EventFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.detail_menu, menu);
+        inflater.inflate(R.menu.ufc_menu, menu);
         Log.d(TAG, "detail Menu created");
 
         MenuItem action_share = menu.findItem(R.id.action_share);
@@ -124,27 +123,24 @@ public class EventFragment extends Fragment {
                 //share NEWS
                 updateShareActionProvider(items);
 
-
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return true;
+
     }
 
 
     public void mCallback() {
         mCallbacks = new UFCAdapter.Callbacks() {
+
             @Override
             public void onItemCompleted(UFCContent items, int position) {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra(DetailActivity.Args, items);
                 startActivity(intent);
+
             }
 
         };
-
     }
-
-
-
 }

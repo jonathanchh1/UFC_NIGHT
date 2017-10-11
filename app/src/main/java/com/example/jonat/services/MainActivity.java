@@ -93,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupWithViewPager(ViewPager viewPager) {
         mTabsAdapter = new TabsAdapter(getSupportFragmentManager());
-        mTabsAdapter.addFragment(new MediaFragment(), getString(R.string.Gossip));
-        mTabsAdapter.addFragment(new TitleholdersFragment(), getString(R.string.news));
-        mTabsAdapter.addFragment(new GamesFragment(), getString(R.string.games));
-        mTabsAdapter.addFragment(new TechFragment(), getString(R.string.tech));
+        mTabsAdapter.addFragment(new EventFragment(), getString(R.string.Event));
+        mTabsAdapter.addFragment(new TitleholdersFragment(), getString(R.string.titleholders));
+        mTabsAdapter.addFragment(new MediaFragment(), getString(R.string.media));
+        mTabsAdapter.addFragment(new FightersFragment(), getString(R.string.fighters));
+        mTabsAdapter.addFragment(new NewsFragment(), getString(R.string.news));
         viewPager.setAdapter(mTabsAdapter);
     }
 }

@@ -16,54 +16,47 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/card_image"
+            android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_view_height"
             android:scaleType="centerCrop"
-            tools:src="@drawable/a" />
+            tools:src="@drawable/placeholder" />
 
         <TextView
-            android:id="@+id/card_title"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/text_title"
-            android:layout_alignBottom="@+id/card_image"
+            android:layout_alignBottom="@+id/thumbnail"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
-            tools:text="@string/item_title"
+            tools:text="@string/title"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
             android:hint="title"/>
 
         <TextView
-            android:id="@+id/card_text"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/card_image"
+            android:layout_below="@+id/thumbnail"
             android:layout_marginLeft="@dimen/md_keylines"
             android:layout_marginTop="@dimen/md_keylines"
             android:layout_marginBottom="@dimen/md_keylines"
             android:layout_marginRight="@dimen/md_keylines"
-            tools:text="@string/item_description"
+            tools:text="@string/description"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/article_subheading" />
 
-        <Button
-            android:id="@+id/action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/card_text"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="?attr/colorPrimary"
-            android:text="Comment" />
+
 
         <ImageButton
             android:id="@+id/share_button"
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
             android:layout_marginRight="@dimen/md_keylines"
-            app:srcCompat="@drawable/ic_share_black_24dp"
-            android:layout_below="@+id/card_text"
+            android:src="@drawable/ic_share_black_24dp"
+            android:layout_below="@+id/description"
             android:layout_alignParentEnd="true"
             style="?android:attr/borderlessButtonStyle"
             android:tint="@color/share_matte"
@@ -74,8 +67,8 @@
             android:layout_width="@dimen/image_button_size"
             android:layout_height="@dimen/image_button_size"
             android:layout_marginRight="@dimen/md_keylines"
-            app:srcCompat="@drawable/ic_favorite_border_black_24dp"
-            android:layout_below="@+id/card_text"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:layout_below="@+id/description"
             android:layout_toLeftOf="@id/share_button"
             style="?android:attr/borderlessButtonStyle"
             android:tint="@color/favorite_matte" />
