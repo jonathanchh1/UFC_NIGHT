@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SortMovies</string>
+    <string name="sort_by">Sort</string>
+    <string name="most_popular">popular</string>
+    <string name="top_rated">top_rated</string>
+    <string name="failture">retrofit failed</string>
+    <string name="share">share</string>
+    <string name="settings">settings</string>
+</resources>
