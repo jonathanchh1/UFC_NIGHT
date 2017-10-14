@@ -34,7 +34,7 @@
             android:hint="title"/>
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/sub_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/thumbnail"
@@ -42,7 +42,7 @@
             android:layout_marginTop="@dimen/md_keylines"
             android:layout_marginBottom="@dimen/md_keylines"
             android:layout_marginRight="@dimen/md_keylines"
-            tools:text="@string/description"
+            tools:text="@string/subtitle"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/dark_grey"
@@ -56,7 +56,7 @@
             android:layout_height="@dimen/image_button_size"
             android:layout_marginRight="@dimen/md_keylines"
             android:src="@drawable/ic_share_black_24dp"
-            android:layout_below="@+id/description"
+            android:layout_below="@+id/sub_title"
             android:layout_alignParentEnd="true"
             style="?android:attr/borderlessButtonStyle"
             android:tint="@color/share_matte"
@@ -68,7 +68,7 @@
             android:layout_height="@dimen/image_button_size"
             android:layout_marginRight="@dimen/md_keylines"
             android:src="@drawable/ic_favorite_border_black_24dp"
-            android:layout_below="@+id/description"
+            android:layout_below="@+id/sub_title"
             android:layout_toLeftOf="@id/share_button"
             style="?android:attr/borderlessButtonStyle"
             android:tint="@color/favorite_matte" />

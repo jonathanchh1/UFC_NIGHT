@@ -1,4 +1,4 @@
-package com.example.jonat.services;
+package com.example.jonat.services.Fragments;
 
 import android.app.Fragment;
 

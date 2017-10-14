@@ -1,11 +1,15 @@
 package com.example.jonat.services;
 
+import com.example.jonat.services.Models.Events;
+import com.example.jonat.services.Models.Fighters;
+import com.example.jonat.services.Models.Medias;
+import com.example.jonat.services.Models.Title;
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by jonat on 10/8/2017.
@@ -13,10 +17,18 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
     @GET("v1/us/{sort_by}")
-    Call<List<UFCContent>> getEvents(@Path("sort_by") String mSortBy);
+    Call<List<Events>> getEvents(@Path("sort_by") String mSortBy);
 
-    @GET("movie/{id}")
-    Call<List<UFCContent>> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);
+    @GET("v1/us/fighters/{sort_by}")
+    Call<List<Title>> getTitles(@Path("sort_by") String mSortBy);
+
+    @GET("v1/us/{sort_by}")
+    Call<List<Medias>> getMedia(@Path("sort_by") String mSortBy);
+
+    @GET("v1/us/{sort_by}")
+    Call<List<Fighters>> getFighters(@Path("sort_by") String mSortBy);
+
+
 
 
 }

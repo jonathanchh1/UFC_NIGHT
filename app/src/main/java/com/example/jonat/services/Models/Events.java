@@ -1,4 +1,4 @@
-package com.example.jonat.services;
+package com.example.jonat.services.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by jonat on 10/10/2017.
  */
 
-public class UFCContent implements Parcelable {
+public class Events implements Parcelable {
 
     @SerializedName("id")
     private String id;
@@ -72,9 +72,7 @@ public class UFCContent implements Parcelable {
     @SerializedName("location")
     private String location;
 
-    public UFCContent() {
 
-    }
 
     public String getBase_title() {
         return base_title;
@@ -317,7 +315,7 @@ public class UFCContent implements Parcelable {
         this.twittertag = twittertag;
     }
 
-    protected UFCContent(Parcel in) {
+    protected Events(Parcel in) {
         id = in.readString();
         eventdate = in.readString();
         image_feature = in.readString();
@@ -350,15 +348,15 @@ public class UFCContent implements Parcelable {
         location = in.readString();
     }
 
-    public static final Creator<UFCContent> CREATOR = new Creator<UFCContent>() {
+    public static final Creator<Events> CREATOR = new Creator<Events>() {
         @Override
-        public UFCContent createFromParcel(Parcel in) {
-            return new UFCContent(in);
+        public Events createFromParcel(Parcel in) {
+            return new Events(in);
         }
 
         @Override
-        public UFCContent[] newArray(int size) {
-            return new UFCContent[size];
+        public Events[] newArray(int size) {
+            return new Events[size];
         }
     };
 
