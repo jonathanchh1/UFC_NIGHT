@@ -45,10 +45,10 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHol
         public MediaViewHolder(View v) {
             super(v);
             mView = v;
-            description = (TextView) v.findViewById(R.id.sub_title);
-            ufcTitle = (TextView) v.findViewById(R.id.title);
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
-            shareButton = (ImageButton) v.findViewById(R.id.share_button);
+            description = v.findViewById(R.id.sub_title);
+            ufcTitle = v.findViewById(R.id.title);
+            thumbnail = v.findViewById(R.id.thumbnail);
+            shareButton = v.findViewById(R.id.share_button);
 
         }
     }
@@ -107,7 +107,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHol
             }
         });
 
-        holder.ufcTitle.setText(mItems.getTitle());
+        holder.ufcTitle.setText(mItems.getUrlName());
         holder.description.setText(mItems.getDescription());
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,4 +15,5 @@
     <string name="tabs">not added</string>
     <string name="noconnection">connection failed</string>
     <string name="menu">menu_created</string>
+    <string name="weight">weight</string>
 </resources>

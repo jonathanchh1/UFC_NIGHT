@@ -23,8 +23,9 @@
     <dimen name="tile_height">200dp</dimen>
     <dimen name="article_titles">20sp</dimen>
     <dimen name="tile_vertical_margin">8dp</dimen>
-
-
+    <dimen name="padding">8dp</dimen>
+    <dimen name="margin">30dp</dimen>
+    <dimen name="title_height">150dp</dimen>
 
 
 </resources>

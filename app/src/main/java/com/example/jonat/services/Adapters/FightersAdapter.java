@@ -34,8 +34,6 @@ public class FightersAdapter extends RecyclerView.Adapter<FightersAdapter.Fighte
     public static class FightersViewHolder extends RecyclerView.ViewHolder {
         TextView ufcTitle;
         ImageView thumbnail;
-        TextView description;
-        ImageButton shareButton;
         ImageButton FavoriteButton;
         public Fighters items;
         View mView;
@@ -44,10 +42,8 @@ public class FightersAdapter extends RecyclerView.Adapter<FightersAdapter.Fighte
         public FightersViewHolder(View v) {
             super(v);
             mView = v;
-            description = (TextView) v.findViewById(R.id.sub_title);
-            ufcTitle = (TextView) v.findViewById(R.id.title);
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
-            shareButton = (ImageButton) v.findViewById(R.id.share_button);
+            ufcTitle = v.findViewById(R.id.title);
+            thumbnail = v.findViewById(R.id.thumbnail);
 
         }
     }
@@ -107,18 +103,7 @@ public class FightersAdapter extends RecyclerView.Adapter<FightersAdapter.Fighte
         });
 
         holder.ufcTitle.setText(mItems.getLast_name());
-        holder.description.setText(mItems.getWeightclass());
-        holder.shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, mItems.getTitleholders());
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, mItems.getLast_name());
-                context.startActivity(Intent.createChooser(sharingIntent, "sharing Option"));
 
-            }
-        });
     }
 
 

@@ -51,10 +51,12 @@ public class FightersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recyclerviewlist, container, false);
 
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.mrecyclerview);
+        recyclerView = rootView.findViewById(R.id.mrecyclerview);
         recyclerView.setHasFixedSize(true);
+        int padding = getResources().getDimensionPixelSize(R.dimen.padding);
+        recyclerView.setPadding(padding, padding, padding, padding);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.number)));
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        progressBar = rootView.findViewById(R.id.progress_bar);
 
         mCallback();
 
@@ -74,7 +76,7 @@ public class FightersFragment extends Fragment {
             public void onResponse(Call<List<Fighters>> call, Response<List<Fighters>> response) {
                 int statusCode = response.code();
                 List<Fighters> items = response.body();
-                recyclerView.setAdapter(new FightersAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
+                recyclerView.setAdapter(new FightersAdapter(items, R.layout.content_fighters, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }
