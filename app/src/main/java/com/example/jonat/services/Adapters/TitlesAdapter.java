@@ -2,7 +2,6 @@ package com.example.jonat.services.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jonat.services.Models.Title;
 import com.example.jonat.services.Models.Title;
 import com.example.jonat.services.R;
 import com.squareup.picasso.Callback;
@@ -26,33 +24,12 @@ import java.util.List;
 
 public class TitlesAdapter extends RecyclerView.Adapter<TitlesAdapter.TitleViewHolder> {
 
+    private final Callbacks mCallbacks;
     private List<Title> itemsList;
     private int rowLayout;
     private Context context;
-    private final Callbacks mCallbacks;
 
 
-
-    public static class TitleViewHolder extends RecyclerView.ViewHolder {
-        TextView ufcTitle;
-        ImageView thumbnail;
-        TextView description;
-        ImageButton shareButton;
-        ImageButton FavoriteButton;
-        public Title items;
-        View mView;
-
-
-        public TitleViewHolder(View v) {
-            super(v);
-            mView = v;
-            description = (TextView) v.findViewById(R.id.sub_title);
-            ufcTitle = (TextView) v.findViewById(R.id.title);
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
-            shareButton = (ImageButton) v.findViewById(R.id.share_button);
-
-        }
-    }
 
     public TitlesAdapter(List<Title> titles, int rowLayout, Context context, Callbacks mCallbacks) {
         this. itemsList = titles;
@@ -66,7 +43,6 @@ public class TitlesAdapter extends RecyclerView.Adapter<TitlesAdapter.TitleViewH
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new TitlesAdapter.TitleViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(final TitlesAdapter.TitleViewHolder holder, final int position) {
@@ -109,13 +85,13 @@ public class TitlesAdapter extends RecyclerView.Adapter<TitlesAdapter.TitleViewH
         });
 
         holder.ufcTitle.setText(mItems.getLast_name());
-        holder.description.setText(mItems.getTitleholders());
+        holder.description.setText(mItems.getWeightclass());
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, mItems.getTitleholders());
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, mItems.getWeightclass());
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, mItems.getLast_name());
                 context.startActivity(Intent.createChooser(sharingIntent, "sharing Option"));
 
@@ -123,19 +99,37 @@ public class TitlesAdapter extends RecyclerView.Adapter<TitlesAdapter.TitleViewH
         });
     }
 
-
     @Override
     public int getItemCount() {
         return  itemsList.size();
     }
 
 
-
-
     public interface Callbacks {
         void onItemCompleted(Title items, int position);
 
 
+    }
+
+    public static class TitleViewHolder extends RecyclerView.ViewHolder {
+        public Title items;
+        TextView ufcTitle;
+        ImageView thumbnail;
+        TextView description;
+        ImageButton shareButton;
+        ImageButton FavoriteButton;
+        View mView;
+
+
+        public TitleViewHolder(View v) {
+            super(v);
+            mView = v;
+            description = v.findViewById(R.id.sub_title);
+            ufcTitle = v.findViewById(R.id.title);
+            thumbnail = v.findViewById(R.id.thumbnail);
+            shareButton = v.findViewById(R.id.share_button);
+
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.jonat.services.Fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,7 +19,14 @@ import com.example.jonat.services.ApiInterface;
 import com.example.jonat.services.DetailActivity;
 import com.example.jonat.services.Models.Title;
 import com.example.jonat.services.R;
+import com.example.jonat.services.UFCSelector;
+import com.karumi.dividers.DividerBuilder;
+import com.karumi.dividers.DividerItemDecoration;
+import com.karumi.dividers.Layer;
+import com.karumi.dividers.LayersBuilder;
+import com.karumi.dividers.selector.AllGroupSelector;
 
+import java.util.Collection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -29,13 +37,14 @@ import retrofit2.Response;
  * Created by jonat on 10/11/2017.
  */
 public class TitleholdersFragment extends Fragment {
-    private static final String TAG = TitleholdersFragment.class.getSimpleName();
-    private TitlesAdapter.Callbacks mCallbacks;
     public final static String TITLES = "title_holders";
+    private static final String TAG = TitleholdersFragment.class.getSimpleName();
+    private static final int HIGH_RATING_THRESHOLD = 190;
+    public ProgressBar progressBar;
+    private TitlesAdapter.Callbacks mCallbacks;
     private String mSortBy = TITLES;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
-    public ProgressBar progressBar;
 
     public TitleholdersFragment() {
         setHasOptionsMenu(true);
@@ -49,16 +58,17 @@ public class TitleholdersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recyclerviewlist, container, false);
 
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.mrecyclerview);
+        recyclerView = rootView.findViewById(R.id.mrecyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.number)));
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        progressBar = rootView.findViewById(R.id.progress_bar);
 
         mCallback();
 
         fetchFilms(mSortBy);
 
         return rootView;
+
 
     }
 
@@ -73,7 +83,9 @@ public class TitleholdersFragment extends Fragment {
             public void onResponse(Call<List<Title>> call, Response<List<Title>> response) {
                 int statusCode = response.code();
                 List<Title> items = response.body();
-                recyclerView.setAdapter(new TitlesAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
+                RecyclerView.ItemDecoration itemDecoration = getItemDecoration(items);
+                recyclerView.addItemDecoration(itemDecoration);
+                recyclerView.setAdapter(new TitlesAdapter(items, R.layout.content_title, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }
@@ -90,9 +102,23 @@ public class TitleholdersFragment extends Fragment {
     }
 
 
+    private RecyclerView.ItemDecoration getItemDecoration(List<Title> titles) {
+        Drawable darkDrawable = getResources().getDrawable(R.drawable.movies_dark_divider);
+        Drawable lightDrawable = getResources().getDrawable(R.drawable.movies_light_divider);
+        Drawable highlightedDrawable = getResources().getDrawable(R.drawable.movies_highlight_divider);
 
+        Layer defaultLayer = new Layer(DividerBuilder.from(lightDrawable).build());
+        Layer externalLayer = new Layer(
+                new AllGroupSelector(),
+                DividerBuilder.from(darkDrawable).build());
+        Layer highLayer = new Layer(
+                new UFCSelector(titles, HIGH_RATING_THRESHOLD),
+                DividerBuilder.from(highlightedDrawable).build());
+        Collection<Layer> layers =
+                LayersBuilder.with(defaultLayer, externalLayer, highLayer).build();
 
-
+        return new DividerItemDecoration(layers);
+    }
 
 
 
