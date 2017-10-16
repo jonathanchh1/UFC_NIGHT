@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +16,8 @@ import com.example.jonat.services.Adapters.MediaAdapter;
 import com.example.jonat.services.ApiClient;
 import com.example.jonat.services.ApiInterface;
 import com.example.jonat.services.DetailActivity;
-import com.example.jonat.services.Models.Events;
 import com.example.jonat.services.Models.Medias;
 import com.example.jonat.services.R;
-import com.example.jonat.services.Adapters.UFCAdapter;
 
 import java.util.List;
 
@@ -31,17 +29,17 @@ import retrofit2.Response;
  * Created by jonat on 10/11/2017.
  */
 
-public class MediaFragment extends Fragment {
-    private static final String TAG = EventFragment.class.getSimpleName();
+public class MediasFragment extends Fragment {
+
+    private static final String TAG = MediasFragment.class.getSimpleName();
     private MediaAdapter.Callbacks mCallbacks;
-    public final static String MEDIAS = "media";
-    private String mSortBy = MEDIAS;
-    public Events items;
+    public final static String Medias = "media";
+    private String mSortBy = Medias;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
     public ProgressBar progressBar;
 
-    public MediaFragment() {
+    public MediasFragment() {
         setHasOptionsMenu(true);
     }
 
@@ -53,19 +51,18 @@ public class MediaFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recyclerviewlist, container, false);
 
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.mrecyclerview);
+        recyclerView = rootView.findViewById(R.id.mrecyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.number)));
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        progressBar = rootView.findViewById(R.id.progress_bar);
+
 
         mCallback();
-
         fetchFilms(mSortBy);
 
         return rootView;
 
     }
-
 
     private void fetchFilms(String mSortBy) {
         apiService =
@@ -85,15 +82,14 @@ public class MediaFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Medias>> call, Throwable t) {
                 // Log error here since request failed
+                Throwable error = t;
                 progressBar.setVisibility(View.VISIBLE);
-                Log.d(TAG, getResources().getString(R.string.noconnection));
+                Log.d(TAG, call + String.valueOf(t) + getResources().getString(R.string.noconnection));
             }
         });
 
 
     }
-
-
 
 
 

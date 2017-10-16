@@ -107,7 +107,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHol
             }
         });
 
-        holder.ufcTitle.setText(mItems.getUrlName());
+        holder.ufcTitle.setText(mItems.getTitle());
         holder.description.setText(mItems.getDescription());
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override

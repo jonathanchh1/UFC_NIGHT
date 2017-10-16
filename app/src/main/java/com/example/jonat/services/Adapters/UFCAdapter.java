@@ -44,10 +44,10 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
         public UFCViewHolder(View v) {
             super(v);
             mView = v;
-            title_fighters = (TextView) v.findViewById(R.id.sub_title);
-            ufcTitle = (TextView) v.findViewById(R.id.title);
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
-            shareButton = (ImageButton) v.findViewById(R.id.share_button);
+            title_fighters = v.findViewById(R.id.sub_title);
+            ufcTitle = v.findViewById(R.id.title);
+            thumbnail = v.findViewById(R.id.thumbnail);
+            shareButton = v.findViewById(R.id.share_button);
 
         }
     }
@@ -133,7 +133,6 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
 
     public interface Callbacks {
         void onItemCompleted(Events items, int position);
-
 
     }
 }

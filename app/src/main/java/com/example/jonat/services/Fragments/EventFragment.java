@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +36,6 @@ public class EventFragment extends Fragment {
     private UFCAdapter.Callbacks mCallbacks;
     public final static String EVENTS = "events";
     private String mSortBy = EVENTS;
-    public Events items;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
     public ProgressBar progressBar;
@@ -53,10 +52,10 @@ public class EventFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.recyclerviewlist, container, false);
 
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.mrecyclerview);
+        recyclerView = rootView.findViewById(R.id.mrecyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        progressBar = rootView.findViewById(R.id.progress_bar);
 
 
         mCallback();
@@ -91,13 +90,6 @@ public class EventFragment extends Fragment {
 
 
     }
-
-
-
-
-
-
-
 
     public void mCallback() {
         mCallbacks = new UFCAdapter.Callbacks() {

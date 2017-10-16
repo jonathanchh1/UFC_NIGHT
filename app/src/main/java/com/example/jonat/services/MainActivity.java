@@ -1,5 +1,6 @@
 package com.example.jonat.services;
 
+import android.content.res.Resources;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -13,16 +14,20 @@ import android.view.MenuItem;
 import com.example.jonat.services.Adapters.TabsAdapter;
 import com.example.jonat.services.Fragments.EventFragment;
 import com.example.jonat.services.Fragments.FightersFragment;
+import com.example.jonat.services.Fragments.MediasFragment;
 import com.example.jonat.services.Fragments.TitleholdersFragment;
+import com.github.pedrovgs.DraggablePanel;
+import com.github.pedrovgs.DraggableView;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+
     private TabsAdapter mTabsAdapter;
     private CoordinatorLayout mCoordinatorLayout;
-
+    private DraggableView draggableView;
 
     final int[] TabsIcon = new int[]{
             R.drawable.ic_event_seat_black_24dp,
@@ -40,17 +45,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.mcoordinator);
+        mCoordinatorLayout = findViewById(R.id.mcoordinator);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        draggableView = findViewById(R.id.draggable_view);
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.tabspager);
+        ViewPager viewPager = findViewById(R.id.tabspager);
         setupWithViewPager(viewPager);
 
         //Set Tabs inside Toolbar
-        TabLayout mTabs = (TabLayout) findViewById(R.id.tabs);
+        TabLayout mTabs = findViewById(R.id.tabs);
         mTabs.setupWithViewPager(viewPager);
 
         //set icon tabs
@@ -83,11 +92,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void initializeDraggablePanel() throws Resources.NotFoundException {
+        draggablePanel.setFragmentManager(getSupportFragmentManager());
+        draggablePanel.setTopFragment(new EventFragment());
+        draggablePanel.initializeView();
+    }
+
     private void setupWithViewPager(ViewPager viewPager) {
         mTabsAdapter = new TabsAdapter(getSupportFragmentManager());
         mTabsAdapter.addFragment(new EventFragment(), getString(R.string.Event));
         mTabsAdapter.addFragment(new TitleholdersFragment(), getString(R.string.titleholders));
-        mTabsAdapter.addFragment(new TitleholdersFragment(), getString(R.string.media));
+        mTabsAdapter.addFragment(new MediasFragment(), getString(R.string.media));
         mTabsAdapter.addFragment(new FightersFragment(), getString(R.string.fighters));
         viewPager.setAdapter(mTabsAdapter);
     }
