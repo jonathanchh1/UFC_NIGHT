@@ -1,12 +1,11 @@
 package com.example.jonat.services;
 
-import android.content.res.Resources;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,25 +15,19 @@ import com.example.jonat.services.Fragments.EventFragment;
 import com.example.jonat.services.Fragments.FightersFragment;
 import com.example.jonat.services.Fragments.MediasFragment;
 import com.example.jonat.services.Fragments.TitleholdersFragment;
-import com.github.pedrovgs.DraggablePanel;
-import com.github.pedrovgs.DraggableView;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
-
-    private TabsAdapter mTabsAdapter;
-    private CoordinatorLayout mCoordinatorLayout;
-    private DraggableView draggableView;
-
     final int[] TabsIcon = new int[]{
             R.drawable.ic_event_seat_black_24dp,
             R.drawable.ic_all_inclusive_black_24dp,
             R.drawable.ic_bubble_chart_black_24dp,
             R.drawable.ic_star_black_24dp,
     };
+    private TabsAdapter mTabsAdapter;
+    private CoordinatorLayout mCoordinatorLayout;
 
 
     public MainActivity() {
@@ -45,12 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
 
         mCoordinatorLayout = findViewById(R.id.mcoordinator);
-
-        draggableView = findViewById(R.id.draggable_view);
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,11 +82,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initializeDraggablePanel() throws Resources.NotFoundException {
-        draggablePanel.setFragmentManager(getSupportFragmentManager());
-        draggablePanel.setTopFragment(new EventFragment());
-        draggablePanel.initializeView();
-    }
 
     private void setupWithViewPager(ViewPager viewPager) {
         mTabsAdapter = new TabsAdapter(getSupportFragmentManager());
