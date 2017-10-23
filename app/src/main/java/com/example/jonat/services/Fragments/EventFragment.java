@@ -7,18 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.jonat.services.Adapters.UFCAdapter;
 import com.example.jonat.services.ApiClient;
 import com.example.jonat.services.ApiInterface;
 import com.example.jonat.services.DetailActivity;
 import com.example.jonat.services.Models.Events;
 import com.example.jonat.services.R;
-import com.example.jonat.services.Adapters.UFCAdapter;
 
 import java.util.List;
 
@@ -32,13 +31,13 @@ import retrofit2.Response;
 
 public class EventFragment extends Fragment {
 
-    private static final String TAG = EventFragment.class.getSimpleName();
-    private UFCAdapter.Callbacks mCallbacks;
     public final static String EVENTS = "events";
+    private static final String TAG = EventFragment.class.getSimpleName();
+    public ProgressBar progressBar;
+    private UFCAdapter.Callbacks mCallbacks;
     private String mSortBy = EVENTS;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
-    public ProgressBar progressBar;
 
     public EventFragment() {
         setHasOptionsMenu(true);
@@ -84,7 +83,7 @@ public class EventFragment extends Fragment {
             public void onFailure(Call<List<Events>> call, Throwable t) {
                 // Log error here since request failed
                 progressBar.setVisibility(View.VISIBLE);
-                Log.d(TAG, getResources().getString(R.string.noconnection));
+                Log.d(TAG, t.toString() + getResources().getString(R.string.noconnection));
             }
         });
 
