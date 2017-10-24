@@ -27,6 +27,7 @@ public class UFCDbHelper extends SQLiteOpenHelper {
                 UFCContract.UFCEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 UFCContract.UFCEntry.COLUMN_EVENT_ID + " TEXT UNIQUE NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_EVENT_DATE + " TEXT NOT NULL, " +
+                UFCContract.UFCEntry.COLUMN_FEATURE_IMAGE + " TEXT NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_SECONDARY_IMAGE + " TEXT NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_TICKET_IMAGE + " TEXT NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_EVENTS_TIME + " TEXT NOT NULL, " +
@@ -42,7 +43,6 @@ public class UFCDbHelper extends SQLiteOpenHelper {
                 UFCContract.UFCEntry.COLUMN_CORNER_AUDIO + " TEXT NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_ARENA + " TEXT NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_LOCATION + " TEXT NOT NULL " + ");";
-
         //gotta do logging
         Log.d(LOG_TAG, SQL_CREATE_FAV_TABLE);
 

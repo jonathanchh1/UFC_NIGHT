@@ -1,6 +1,9 @@
 package com.example.jonat.services.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -18,7 +24,9 @@ import com.example.jonat.services.ApiInterface;
 import com.example.jonat.services.DetailActivity;
 import com.example.jonat.services.Models.Events;
 import com.example.jonat.services.R;
+import com.example.jonat.services.data.UFCContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,9 +41,33 @@ public class EventFragment extends Fragment {
 
     public final static String EVENTS = "events";
     private static final String TAG = EventFragment.class.getSimpleName();
+    private final static String FAVORITE = "favorite";
+    private static final String[] EVENTS_COLUMNS = {
+            UFCContract.UFCEntry._ID,
+            UFCContract.UFCEntry.COLUMN_EVENT_ID,
+            UFCContract.UFCEntry.COLUMN_EVENT_DATE,
+            UFCContract.UFCEntry.COLUMN_SECONDARY_IMAGE,
+            UFCContract.UFCEntry.COLUMN_FEATURE_IMAGE,
+            UFCContract.UFCEntry.COLUMN_TICKET_IMAGE,
+            UFCContract.UFCEntry.COLUMN_EVENTS_TIME,
+            UFCContract.UFCEntry.COLUMN_DESCRIPTION,
+            UFCContract.UFCEntry.COLUMN_END_EVENT,
+            UFCContract.UFCEntry.COLUMN_TICKET_URL,
+            UFCContract.UFCEntry.COLUMN_TICKET_SELLER,
+            UFCContract.UFCEntry.COLUMN_TITLE,
+            UFCContract.UFCEntry.COLUMN_TITLE_TAG,
+            UFCContract.UFCEntry.COLUMN_TICKET,
+            UFCContract.UFCEntry.COLUMN_SUBTITLE,
+            UFCContract.UFCEntry.COLUMN_EVENTS_STATUS,
+            UFCContract.UFCEntry.COLUMN_CORNER_AUDIO,
+            UFCContract.UFCEntry.COLUMN_ARENA,
+            UFCContract.UFCEntry.COLUMN_LOCATION
+    };
     public ProgressBar progressBar;
     private UFCAdapter.Callbacks mCallbacks;
     private String mSortBy = EVENTS;
+    private UFCAdapter mAdapter;
+    private List<Events> items;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
 
@@ -58,13 +90,58 @@ public class EventFragment extends Fragment {
 
 
         mCallback();
-        fetchFilms(mSortBy);
+        fetchUFC(mSortBy);
 
         return rootView;
 
     }
 
-    private void fetchFilms(String mSortBy) {
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.ufc_list, menu);
+
+        switch (mSortBy) {
+            case EVENTS:
+                menu.findItem(R.id.sort_by_events).setChecked(true);
+                break;
+            case FAVORITE:
+                menu.findItem(R.id.sort_by_favorites).setChecked(true);
+                break;
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort_by_events:
+                mSortBy = EVENTS;
+                SortByMovies(mSortBy);
+                item.setChecked(true);
+                break;
+
+            case R.id.sort_by_favorites:
+                mSortBy = FAVORITE;
+                Log.d(TAG, "favorite pressed");
+                SortByMovies(mSortBy);
+                item.setChecked(true);
+                return true;
+            default:
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void SortByMovies(String mSortBy) {
+        if (!mSortBy.contentEquals(FAVORITE)) {
+            fetchUFC(mSortBy);
+        } else {
+            new FetchFav(getContext()).execute(FAVORITE);
+        }
+    }
+
+    private void fetchUFC(String mSortBy) {
         apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -73,8 +150,8 @@ public class EventFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Events>> call, Response<List<Events>> response) {
                 int statusCode = response.code();
-                List<Events> items = response.body();
-                recyclerView.setAdapter(new UFCAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
+                items = response.body();
+                recyclerView.setAdapter(mAdapter = new UFCAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }
@@ -102,5 +179,64 @@ public class EventFragment extends Fragment {
             }
 
         };
+    }
+
+    public class FetchFav extends AsyncTask<String, Void, List<Events>> {
+
+        private Context mContext;
+
+
+        //constructor
+        public FetchFav(Context context) {
+            mContext = context;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected List<Events> doInBackground(String... params) {
+            Cursor cursor = mContext.getContentResolver().query(
+                    UFCContract.UFCEntry.CONTENT_URI,
+                    EVENTS_COLUMNS,
+                    null,
+                    null,
+                    null
+            );
+
+            return getFavEventsFromCursor(cursor);
+        }
+
+        @Override
+        protected void onPostExecute(List<Events> events) {
+            //we got Fav movies so let's show them
+            if (events != null) {
+                if (mAdapter != null) {
+                    mAdapter.setData(events);
+                }
+                items = new ArrayList<>();
+                items.addAll(events);
+
+                Log.d(TAG, "Favorites :" + items.toString());
+            } else {
+                Log.d(TAG, getString(R.string.nofav));
+            }
+        }
+
+        private List<Events> getFavEventsFromCursor(Cursor cursor) {
+            List<Events> results = new ArrayList<>();
+            //if we have data in database for Fav. movies.
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    Events events = new Events(cursor);
+                    results.add(events);
+                } while (cursor.moveToNext());
+                cursor.close();
+            }
+            return results;
+        }
     }
 }

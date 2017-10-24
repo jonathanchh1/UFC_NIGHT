@@ -19,6 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailActivity"></activity>
+
+        <provider
+            android:name=".data.UFCProvider"
+            android:authorities="com.example.jonat.services.data"
+            android:enabled="true"
+            android:exported="true" />
     </application>
+    m
 
 </manifest>

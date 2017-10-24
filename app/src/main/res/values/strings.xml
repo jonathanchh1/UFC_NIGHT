@@ -16,4 +16,7 @@
     <string name="noconnection">connection failed</string>
     <string name="menu">menu_created</string>
     <string name="weight">weight</string>
+    <string name="events">Event</string>
+    <string name="favorite">Favorite</string>
+    <string name="nofav">no favorite</string>
 </resources>

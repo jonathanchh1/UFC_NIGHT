@@ -18,25 +18,6 @@ public class UFCContract {
 
     //URI end points for Content provider
     public static final String PATH_UFC = "ufc";
-    public static final int COL_ID = 0;
-    public static final int COL_EVENT_ID = 1;
-    public static final int COL__EVENT_DATE = 2;
-    public static final int COL_SECONDARY_IMAGE = 3;
-    public static final int COL_TICKET_IMAGE = 4;
-    public static final int COL_EVENTS_TIME = 5;
-    public static final int COL_DESCRIPTION = 6;
-    public static final int COL_END_EVENT = 7;
-    public static final int COL_TICKET_URL = 8;
-    public static final int COL_TICKET_SELLER = 9;
-    public static final int COL_TITLE = 10;
-    public static final int COL_TITLE_TAG = 11;
-    public static final int COL_TICKET = 12;
-    public static final int COL_SUBTITLE = 13;
-    public static final int COL_EVENTS_STATUS = 14;
-    public static final int COL_CORNER_AUDIO = 15;
-    public static final int COL_ARENA = 16;
-    public static final int COL_LOCATION = 17;
-
     //for favorites
     public static final class UFCEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
@@ -53,6 +34,7 @@ public class UFCContract {
         public static final String TABLE_NAME = "events";
         public static final String COLUMN_EVENT_ID = "id";
         public static final String COLUMN_EVENT_DATE = "event_date";
+        public static final String COLUMN_FEATURE_IMAGE = "feature_image";
         public static final String COLUMN_SECONDARY_IMAGE = "secondary_feature_image";
         public static final String COLUMN_TICKET_IMAGE = "ticket_image";
         public static final String COLUMN_EVENTS_TIME = "event_time_zone_text";
@@ -68,11 +50,30 @@ public class UFCContract {
         public static final String COLUMN_CORNER_AUDIO = "corner_audio_available";
         public static final String COLUMN_ARENA = "arena";
         public static final String COLUMN_LOCATION = "location";
-
+        public static final int COL_ID = 0;
+        public static final int COL_EVENT_ID = 1;
+        public static final int COL__EVENT_DATE = 2;
+        public static final int COL_SECONDARY_IMAGE = 3;
+        public static final int COL_FEATURE_IMAGE = 4;
+        public static final int COL_TICKET_IMAGE = 5;
+        public static final int COL_EVENTS_TIME = 6;
+        public static final int COL_DESCRIPTION = 7;
+        public static final int COL_END_EVENT = 8;
+        public static final int COL_TICKET_URL = 9;
+        public static final int COL_TICKET_SELLER = 10;
+        public static final int COL_TITLE = 11;
+        public static final int COL_TITLE_TAG = 12;
+        public static final int COL_TICKET = 13;
+        public static final int COL_SUBTITLE = 14;
+        public static final int COL_EVENTS_STATUS = 15;
+        public static final int COL_CORNER_AUDIO = 16;
+        public static final int COL_ARENA = 17;
+        public static final int COL_LOCATION = 18;
 
         public static Uri buildUFCUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+
 
     }
 
