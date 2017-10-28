@@ -28,7 +28,7 @@ import java.util.List;
  * Created by jonat on 10/8/2017.
  */
 
-public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolder> {
 
     private final Callbacks mCallbacks;
     private final Events mEvents = new Events();
@@ -36,7 +36,7 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
     private int rowLayout;
     private Context context;
 
-    public UFCAdapter(List<Events> events, int rowLayout, Context context, Callbacks mCallbacks) {
+    public EventAdapter(List<Events> events, int rowLayout, Context context, Callbacks mCallbacks) {
         this. itemsList = events;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -65,7 +65,7 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
     }
 
     @Override
-    public UFCAdapter.UFCViewHolder onCreateViewHolder(ViewGroup parent,
+    public EventAdapter.UFCViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new UFCViewHolder(view);
@@ -134,7 +134,7 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
 
             @Override
             protected void onPostExecute(Integer isFavored) {
-                holder.FavoriteButton.setBackgroundResource(isFavored == 1 ?
+                holder.FavoriteButton.setImageResource(isFavored == 1 ?
                         R.drawable.ic_favorite_black_24dp :
                         R.drawable.ic_favorite_border_black_24dp);
             }
@@ -169,7 +169,7 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
 
                                 @Override
                                 protected void onPostExecute(Integer rowsDeleted) {
-                                    holder.FavoriteButton.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp);
+                                    holder.FavoriteButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
 
                                 }
                             }.execute();
@@ -206,7 +206,7 @@ public class UFCAdapter extends RecyclerView.Adapter<UFCAdapter.UFCViewHolder> {
 
                                 @Override
                                 protected void onPostExecute(Uri returnUri) {
-                                    holder.FavoriteButton.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                                    holder.FavoriteButton.setImageResource(R.drawable.ic_favorite_black_24dp);
                                 }
                             }.execute();
                         }

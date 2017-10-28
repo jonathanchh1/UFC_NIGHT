@@ -24,7 +24,9 @@
             android:name=".data.UFCProvider"
             android:authorities="com.example.jonat.services.data"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false"
+            android:protectionLevel="signature"
+            android:syncable="true" />
     </application>
     m
 

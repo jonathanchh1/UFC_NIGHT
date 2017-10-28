@@ -9,8 +9,9 @@ import java.util.EnumSet;
 import java.util.List;
 
 /**
- * Created by jonat on 10/16/2017.
+ * Created by jonat on 10/24/2017.
  */
+
 public class UFCSelector implements Selector {
 
     private final List<Title> titles;
@@ -31,3 +32,4 @@ public class UFCSelector implements Selector {
         return EnumSet.allOf(Direction.class);
     }
 }
+

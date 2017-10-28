@@ -31,13 +31,13 @@ import retrofit2.Response;
 
 public class FightersFragment extends Fragment {
 
-    private static final String TAG = FightersFragment.class.getSimpleName();
-    private FightersAdapter.Callbacks mCallbacks;
     public final static String FIGHTERS = "fighters";
+    private static final String TAG = FightersFragment.class.getSimpleName();
+    public ProgressBar progressBar;
+    private FightersAdapter.Callbacks mCallbacks;
     private String mSortBy = FIGHTERS;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
-    public ProgressBar progressBar;
 
     public FightersFragment() {
         setHasOptionsMenu(true);
@@ -55,7 +55,7 @@ public class FightersFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         int padding = getResources().getDimensionPixelSize(R.dimen.padding);
         recyclerView.setPadding(padding, padding, padding, padding);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.number)));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.number1)));
         progressBar = rootView.findViewById(R.id.progress_bar);
 
         mCallback();

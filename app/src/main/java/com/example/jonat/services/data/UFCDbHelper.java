@@ -23,7 +23,7 @@ public class UFCDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //create database table here
-        final String SQL_CREATE_FAV_TABLE = "CREATE TABLE " + UFCContract.UFCEntry.TABLE_NAME + " ( " +
+        final String SQL_CREATE_EVENT_TABLE = "CREATE TABLE " + UFCContract.UFCEntry.TABLE_NAME + " ( " +
                 UFCContract.UFCEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 UFCContract.UFCEntry.COLUMN_EVENT_ID + " TEXT UNIQUE NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_EVENT_DATE + " TEXT NOT NULL, " +
@@ -44,9 +44,29 @@ public class UFCDbHelper extends SQLiteOpenHelper {
                 UFCContract.UFCEntry.COLUMN_ARENA + " TEXT NOT NULL, " +
                 UFCContract.UFCEntry.COLUMN_LOCATION + " TEXT NOT NULL " + ");";
         //gotta do logging
-        Log.d(LOG_TAG, SQL_CREATE_FAV_TABLE);
 
-        db.execSQL(SQL_CREATE_FAV_TABLE);
+        final String SQL_CREATE_MEDIA_TABLE = "CREATE TABLE " + UFCContract.MediaEntry.TABLE_NAME + " ( " +
+                UFCContract.MediaEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                UFCContract.MediaEntry.COLUMN_MEDIA_ID + " TEXT UNIQUE NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_MEDIA_DATE + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_TYPE + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_DESCR + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_MORE_LINK + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_THUMBNAIL + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_INTERNAL_URL + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_MEDIA_TITLE + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_MORE_LINKURL + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_LAST_MODIFIED + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_URL_NAME + " TEXT NOT NULL, " +
+                UFCContract.MediaEntry.COLUMN_PUBLISHED + " TEXT NOT NULL " + ");";
+        //gotta do logging
+
+        Log.d(LOG_TAG, SQL_CREATE_EVENT_TABLE);
+        Log.d(LOG_TAG, SQL_CREATE_MEDIA_TABLE);
+
+
+        db.execSQL(SQL_CREATE_EVENT_TABLE);
+        db.execSQL(SQL_CREATE_MEDIA_TABLE);
 
         Log.d(LOG_TAG, "all tables created");
     }
@@ -54,9 +74,10 @@ public class UFCDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //this will be invoked when we will change DATABASE_VERSION aka schema of database.
-        // if we upgrade schema user will lost his fav. collection
+        // if we upgrade schema user will lost this fav. collection
         //comment this out if you don't want this to happen
         db.execSQL("DROP TABLE IF EXISTS " + UFCContract.UFCEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UFCContract.MediaEntry.TABLE_NAME);
         onCreate(db);
     }
 }

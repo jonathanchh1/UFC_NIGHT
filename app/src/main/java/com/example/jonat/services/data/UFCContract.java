@@ -17,17 +17,21 @@ public class UFCContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     //URI end points for Content provider
-    public static final String PATH_UFC = "ufc";
+    public static final String PATH_EVENT = "ufc";
+
+    public static final String PATH_MEDIA = "media";
+
     //for favorites
     public static final class UFCEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_UFC).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_EVENT).build();
+
 
         //these are MIME types ,not really but they are similar to MIME types
         public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_UFC;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EVENT;
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_UFC;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EVENT;
 
 
         // Table name
@@ -50,6 +54,7 @@ public class UFCContract {
         public static final String COLUMN_CORNER_AUDIO = "corner_audio_available";
         public static final String COLUMN_ARENA = "arena";
         public static final String COLUMN_LOCATION = "location";
+
         public static final int COL_ID = 0;
         public static final int COL_EVENT_ID = 1;
         public static final int COL__EVENT_DATE = 2;
@@ -70,12 +75,53 @@ public class UFCContract {
         public static final int COL_ARENA = 17;
         public static final int COL_LOCATION = 18;
 
-        public static Uri buildUFCUri(long id) {
+        public static Uri buildEventUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+    }
+
+    public static final class MediaEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_MEDIA).build();
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MEDIA;
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MEDIA;
+
+        //media table
+        public static final String TABLE_NAME = "media";
+        public static final String COLUMN_MEDIA_ID = "id";
+        public static final String COLUMN_MEDIA_DATE = "media_date";
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_DESCR = "description";
+        public static final String COLUMN_MORE_LINK = "more_link_text";
+        public static final String COLUMN_THUMBNAIL = "thumbnail";
+        public static final String COLUMN_INTERNAL_URL = "internal_url";
+        public static final String COLUMN_MEDIA_TITLE = "title";
+        public static final String COLUMN_MORE_LINKURL = "more_linkurl";
+        public static final String COLUMN_LAST_MODIFIED = "last_modified";
+        public static final String COLUMN_URL_NAME = "url_name";
+        public static final String COLUMN_PUBLISHED = "published_start_date";
+        public static final int COL_M_ID = 0;
+        public static final int COL_MEDIA_ID = 1;
+        public static final int COL__MEDIA_DATE = 2;
+        public static final int COL_TYPE = 3;
+        public static final int COL_DESCR = 4;
+        public static final int COL_MORE_LINK = 5;
+        public static final int COL_THUMBNAIL = 6;
+        public static final int COL_INTERNAL_URL = 7;
+        public static final int COL_MEDIA_TITLE = 8;
+        public static final int COL_MORE_LINKURL = 9;
+        public static final int COL_LAST_MODIFIED = 10;
+        public static final int COL_URL_NAME = 11;
+        public static final int COL_PUBLISHED = 12;
+
+        public static Uri buildMediaUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-
     }
-
 
 }

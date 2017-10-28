@@ -18,7 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.jonat.services.Adapters.UFCAdapter;
+import com.example.jonat.services.Adapters.EventAdapter;
 import com.example.jonat.services.ApiClient;
 import com.example.jonat.services.ApiInterface;
 import com.example.jonat.services.DetailActivity;
@@ -64,9 +64,9 @@ public class EventFragment extends Fragment {
             UFCContract.UFCEntry.COLUMN_LOCATION
     };
     public ProgressBar progressBar;
-    private UFCAdapter.Callbacks mCallbacks;
+    private EventAdapter.Callbacks mCallbacks;
     private String mSortBy = EVENTS;
-    private UFCAdapter mAdapter;
+    private EventAdapter mAdapter;
     private List<Events> items;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
@@ -90,7 +90,7 @@ public class EventFragment extends Fragment {
 
 
         mCallback();
-        fetchUFC(mSortBy);
+        fetchEvent(mSortBy);
 
         return rootView;
 
@@ -118,14 +118,14 @@ public class EventFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.sort_by_events:
                 mSortBy = EVENTS;
-                SortByMovies(mSortBy);
+                SortByEvent(mSortBy);
                 item.setChecked(true);
                 break;
 
             case R.id.sort_by_favorites:
                 mSortBy = FAVORITE;
                 Log.d(TAG, "favorite pressed");
-                SortByMovies(mSortBy);
+                SortByEvent(mSortBy);
                 item.setChecked(true);
                 return true;
             default:
@@ -133,15 +133,15 @@ public class EventFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void SortByMovies(String mSortBy) {
+    private void SortByEvent(String mSortBy) {
         if (!mSortBy.contentEquals(FAVORITE)) {
-            fetchUFC(mSortBy);
+            fetchEvent(mSortBy);
         } else {
             new FetchFav(getContext()).execute(FAVORITE);
         }
     }
 
-    private void fetchUFC(String mSortBy) {
+    private void fetchEvent(String mSortBy) {
         apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -151,7 +151,7 @@ public class EventFragment extends Fragment {
             public void onResponse(Call<List<Events>> call, Response<List<Events>> response) {
                 int statusCode = response.code();
                 items = response.body();
-                recyclerView.setAdapter(mAdapter = new UFCAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
+                recyclerView.setAdapter(mAdapter = new EventAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }
@@ -168,7 +168,7 @@ public class EventFragment extends Fragment {
     }
 
     public void mCallback() {
-        mCallbacks = new UFCAdapter.Callbacks() {
+        mCallbacks = new EventAdapter.Callbacks() {
 
             @Override
             public void onItemCompleted(Events items, int position) {

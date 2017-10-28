@@ -23,4 +23,17 @@ public class Query {
         cursor.close();
         return numRows;
     }
+
+    public static int isFavoritedMedia(Context context, int id) {
+        Cursor cursor = context.getContentResolver().query(
+                UFCContract.MediaEntry.CONTENT_URI,
+                null,   // projection
+                UFCContract.MediaEntry.COLUMN_MEDIA_ID + " = ?", // selection
+                new String[]{Integer.toString(id)},   // selectionArgs
+                null    // sort order
+        );
+        int numRows = cursor.getCount();
+        cursor.close();
+        return numRows;
+    }
 }
