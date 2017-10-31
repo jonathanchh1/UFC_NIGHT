@@ -1,5 +1,6 @@
 package com.example.jonat.services;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.settings) {
+            startActivity(new Intent(MainActivity.this, SettingActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
