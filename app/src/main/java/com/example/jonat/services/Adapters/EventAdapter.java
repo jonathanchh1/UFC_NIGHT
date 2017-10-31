@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,17 +24,19 @@ import com.example.jonat.services.data.UFCContract;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by jonat on 10/8/2017.
  */
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolder> implements Filterable {
 
     private final Callbacks mCallbacks;
     private final Events mEvents = new Events();
     private List<Events> itemsList;
+    private List<Events> mListfilterable;
     private int rowLayout;
     private Context context;
 
@@ -41,6 +45,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
         this.rowLayout = rowLayout;
         this.context = context;
         this.mCallbacks = mCallbacks;
+        this.mListfilterable = events;
     }
 
     public void setData(List<Events> data) {
@@ -52,14 +57,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
 
     private void remove() {
         synchronized (mEvents) {
-            itemsList.clear();
+            mListfilterable.clear();
         }
         notifyDataSetChanged();
     }
 
     private void add(Events events) {
         synchronized (mEvents) {
-            itemsList.add(events);
+            mListfilterable.add(events);
         }
         notifyDataSetChanged();
     }
@@ -75,7 +80,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
     @Override
     public void onBindViewHolder(final UFCViewHolder holder, final int position) {
 
-        final Events mItems =  itemsList.get(position);
+        final Events mItems = mListfilterable.get(position);
         holder.items = mItems;
 
         String poster = mItems.getFeaturedImage();
@@ -219,7 +224,47 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
 
     @Override
     public int getItemCount() {
-        return  itemsList.size();
+        return mListfilterable.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+
+                String charString = charSequence.toString();
+
+                if (charString.isEmpty()) {
+
+                    mListfilterable = itemsList;
+                } else {
+
+                    ArrayList<Events> filteredList = new ArrayList<>();
+
+                    for (Events event : itemsList) {
+
+                        if (event.getBase_title().toUpperCase().contains(charString) || event.getFeaturedImage().toUpperCase().contains(charString) || event.getTitle_tag().toUpperCase().contains(charString)) {
+
+                            filteredList.add(event);
+                        }
+                    }
+
+                    mListfilterable = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mListfilterable;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mListfilterable = (ArrayList<Events>) filterResults.values;
+                notifyDataSetChanged();
+            }
+
+        };
     }
 
 
