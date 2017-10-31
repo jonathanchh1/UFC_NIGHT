@@ -244,7 +244,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
 
                     for (Events event : itemsList) {
 
-                        if (event.getBase_title().toUpperCase().contains(charString) || event.getFeaturedImage().toUpperCase().contains(charString) || event.getTitle_tag().toUpperCase().contains(charString)) {
+                        if (event.getBase_title().toUpperCase().toLowerCase().contains(charString) ||
+                                event.getFeaturedImage().toUpperCase().toLowerCase().contains(charString) ||
+                                event.getTitle_tag().toUpperCase().toLowerCase().contains(charString)) {
 
                             filteredList.add(event);
                         }

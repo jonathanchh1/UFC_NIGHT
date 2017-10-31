@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -79,7 +79,20 @@ public class MediasFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.mrecyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //setup span size expanding.
+        //Create a grid layout with two columns
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),
+                getResources().getInteger(R.integer.number));
+
+        //setup span size expanding.
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return position == 0 ? 2 : 1;
+            }
+        });
+
+        recyclerView.setLayoutManager(layoutManager);
         progressBar = rootView.findViewById(R.id.progress_bar);
 
 
