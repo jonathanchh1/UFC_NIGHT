@@ -35,6 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.jonat.services.Fragments.MediasFragment.TAG;
+
 /**
  * Created by jonat on 10/11/2017.
  */
@@ -42,7 +44,6 @@ import retrofit2.Response;
 public class EventFragment extends Fragment {
 
     public final static String EVENTS = "events";
-    private static final String TAG = EventFragment.class.getSimpleName();
     private final static String FAVORITE = "favorite";
     private static final String[] EVENTS_COLUMNS = {
             UFCContract.UFCEntry._ID,

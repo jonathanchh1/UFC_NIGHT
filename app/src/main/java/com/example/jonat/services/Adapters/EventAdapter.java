@@ -119,6 +119,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
 
         holder.ufcTitle.setText(mItems.getBase_title());
         holder.title_fighters.setText(mItems.getTitle_tag());
+
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -282,6 +283,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
         TextView title_fighters;
         ImageButton shareButton;
         ImageButton FavoriteButton;
+        TextView mComment;
         View mView;
 
 
@@ -292,6 +294,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
             ufcTitle = v.findViewById(R.id.title);
             thumbnail = v.findViewById(R.id.thumbnail);
             FavoriteButton = v.findViewById(R.id.favorite_button);
+            mComment = v.findViewById(R.id.comment_button);
             shareButton = v.findViewById(R.id.share_button);
 
         }

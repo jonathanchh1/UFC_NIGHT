@@ -49,6 +49,14 @@
             tools:text="@string/subtitle" />
 
 
+        <Button
+            android:id="@+id/comment_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sub_title"
+            android:text="Comment"
+            android:textColor="?attr/colorPrimary" />
 
         <ImageButton
             android:id="@+id/share_button"

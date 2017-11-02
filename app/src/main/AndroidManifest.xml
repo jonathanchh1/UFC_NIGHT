@@ -28,7 +28,7 @@
             android:protectionLevel="signature"
             android:syncable="true" />
 
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".SettingActivity" />
     </application>
 
 </manifest>
