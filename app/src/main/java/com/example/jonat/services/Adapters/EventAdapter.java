@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jonat.services.Models.Events;
-import com.example.jonat.services.Query;
+import com.example.jonat.services.Queries;
 import com.example.jonat.services.R;
 import com.example.jonat.services.data.UFCContract;
 import com.squareup.picasso.Callback;
@@ -135,7 +135,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
         new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(Void... params) {
-                return Query.isFavorited(context, mItems.getId());
+                return Queries.isFavorited(context, mItems.getId());
             }
 
             @Override
@@ -155,7 +155,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
 
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        return Query.isFavorited(context, mItems.getId());
+                        return Queries.isFavorited(context, mItems.getId());
                     }
 
                     @Override

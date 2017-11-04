@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jonat.services.Models.Medias;
-import com.example.jonat.services.Query;
+import com.example.jonat.services.Queries;
 import com.example.jonat.services.R;
 import com.example.jonat.services.data.UFCContract;
 import com.squareup.picasso.Callback;
@@ -128,7 +128,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHol
         new AsyncTask<Void, Void, Integer>() {
             @Override
             protected Integer doInBackground(Void... params) {
-                return Query.isFavoritedMedia(context, mItems.getId());
+                return Queries.isFavoritedMedia(context, mItems.getId());
             }
 
             @Override
@@ -148,7 +148,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaViewHol
 
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        return Query.isFavoritedMedia(context, mItems.getId());
+                        return Queries.isFavoritedMedia(context, mItems.getId());
                     }
 
                     @Override

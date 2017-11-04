@@ -9,7 +9,7 @@ import com.example.jonat.services.data.UFCContract;
  * Created by jonat on 10/23/2017.
  */
 
-public class Query {
+public class Queries {
     //takes id and tells whether favorite is added or not
     public static int isFavorited(Context context, int id) {
         Cursor cursor = context.getContentResolver().query(
