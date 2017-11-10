@@ -45,6 +45,7 @@ public class TitleholdersFragment extends Fragment {
     private String mSortBy = TITLES;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
+    private TitlesAdapter mAdapter;
 
     public TitleholdersFragment() {
         setHasOptionsMenu(true);
@@ -85,7 +86,7 @@ public class TitleholdersFragment extends Fragment {
                 List<Title> items = response.body();
                 RecyclerView.ItemDecoration itemDecoration = getItemDecoration(items);
                 recyclerView.addItemDecoration(itemDecoration);
-                recyclerView.setAdapter(new TitlesAdapter(items, R.layout.content_title, getActivity(), mCallbacks));
+                recyclerView.setAdapter(mAdapter = new TitlesAdapter(items, R.layout.content_title, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }

@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jonat.services.CommentActivity;
 import com.example.jonat.services.Models.Events;
 import com.example.jonat.services.Queries;
 import com.example.jonat.services.R;
@@ -119,6 +120,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.UFCViewHolde
 
         holder.ufcTitle.setText(mItems.getBase_title());
         holder.title_fighters.setText(mItems.getTitle_tag());
+        holder.mComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context.getApplicationContext(), CommentActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
 
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override

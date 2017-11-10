@@ -8,29 +8,16 @@
         android:id="@+id/post_author_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:src="@drawable/ic_account_circle_black_24dp" />
-
-    <TextView
-        android:id="@+id/post_title"
-        style="@style/Base.TextAppearance.AppCompat.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/post_author_photo"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        tools:text="@string/title" />
 
     <TextView
         android:id="@+id/post_author"
         style="@style/Base.TextAppearance.AppCompat.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/author_margin"
+        android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
-        tools:text="@string/authorName" />
-
+        tools:text="someauthor@email.com" />
 
     <LinearLayout
         android:id="@+id/comment_form"
@@ -66,4 +53,5 @@
         android:layout_below="@+id/comment_form"
         tools:listitem="@layout/item_comment" />
 </RelativeLayout>
+
 

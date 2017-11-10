@@ -38,6 +38,7 @@ public class FightersFragment extends Fragment {
     private String mSortBy = FIGHTERS;
     private ApiInterface apiService;
     private RecyclerView recyclerView;
+    private FightersAdapter mAdapter;
 
     public FightersFragment() {
         setHasOptionsMenu(true);
@@ -76,7 +77,7 @@ public class FightersFragment extends Fragment {
             public void onResponse(Call<List<Fighters>> call, Response<List<Fighters>> response) {
                 int statusCode = response.code();
                 List<Fighters> items = response.body();
-                recyclerView.setAdapter(new FightersAdapter(items, R.layout.content_fighters, getActivity(), mCallbacks));
+                recyclerView.setAdapter(mAdapter = new FightersAdapter(items, R.layout.content_fighters, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }

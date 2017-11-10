@@ -11,9 +11,6 @@ public class Comment {
     public String text;
     public String UserImage;
 
-    public Comment() {
-        // Default constructor required for calls to DataSnapshot.getValue(Comment.class)
-    }
 
     public Comment(String uid, String author, String text, String userImage) {
         this.uid = uid;
@@ -22,4 +19,36 @@ public class Comment {
         this.UserImage = userImage;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getUserImage() {
+        return UserImage;
+    }
+
+    public void setUserImage(String userImage) {
+        UserImage = userImage;
+    }
 }
+

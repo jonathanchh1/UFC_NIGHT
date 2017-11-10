@@ -3,14 +3,18 @@ package com.example.jonat.services.Adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.jonat.services.CommentFragment;
+import com.example.jonat.services.CommentActivity;
 import com.example.jonat.services.Models.Comment;
 import com.example.jonat.services.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -26,7 +30,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private ChildEventListener mChildEventListener;
     private List<String> mCommentIds = new ArrayList<>();
     private List<Comment> mComments = new ArrayList<>();
-
     public CommentAdapter(final Context context, DatabaseReference ref) {
         mContext = context;
         mDatabaseReference = ref;
@@ -36,81 +39,88 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(CommentFragment.TAG_LOG, "onChildAdded:" + dataSnapshot.getKey());
-
+                Log.d(CommentActivity.LOG_TAG, "onChildAdded:" + dataSnapshot.getKey());
                 // A new comment has been added, add it to the displayed list
                 Comment comment = dataSnapshot.getValue(Comment.class);
-
                 // [START_EXCLUDE]
                 // Update RecyclerView
                 mCommentIds.add(dataSnapshot.getKey());
                 mComments.add(comment);
                 notifyItemInserted(mComments.size() - 1);
+
                 // [END_EXCLUDE]
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
+                Log.d(CommentActivity.LOG_TAG, "onChildChanged:" + dataSnapshot.getKey());
 
                 // A comment has changed, use the key to determine if we are displaying this
-                // comment and if so displayed the changed comment.
+                // comment and if so displayed the changed comment
                 Comment newComment = dataSnapshot.getValue(Comment.class);
                 String commentKey = dataSnapshot.getKey();
-
                 // [START_EXCLUDE]
                 int commentIndex = mCommentIds.indexOf(commentKey);
+
                 if (commentIndex > -1) {
                     // Replace with the new data
                     mComments.set(commentIndex, newComment);
-
                     // Update the RecyclerView
                     notifyItemChanged(commentIndex);
+
                 } else {
-                    Log.w(TAG, "onChildChanged:unknown_child:" + commentKey);
+                    Log.w(CommentActivity.LOG_TAG, "onChildChanged:unknown_child:" + commentKey);
+
                 }
                 // [END_EXCLUDE]
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-
+                Log.d(CommentActivity.LOG_TAG, "onChildRemoved:" + dataSnapshot.getKey());
                 // A comment has changed, use the key to determine if we are displaying this
                 // comment and if so remove it.
                 String commentKey = dataSnapshot.getKey();
-
                 // [START_EXCLUDE]
                 int commentIndex = mCommentIds.indexOf(commentKey);
                 if (commentIndex > -1) {
                     // Remove data from the list
                     mCommentIds.remove(commentIndex);
                     mComments.remove(commentIndex);
-
                     // Update the RecyclerView
                     notifyItemRemoved(commentIndex);
                 } else {
-                    Log.w(TAG, "onChildRemoved:unknown_child:" + commentKey);
+
+                    Log.w(CommentActivity.LOG_TAG, "onChildRemoved:unknown_child:" + commentKey);
                 }
                 // [END_EXCLUDE]
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
+                Log.d(CommentActivity.LOG_TAG, "onChildMoved:" + dataSnapshot.getKey());
 
                 // A comment has changed position, use the key to determine if we are
                 // displaying this comment and if so move it.
                 Comment movedComment = dataSnapshot.getValue(Comment.class);
                 String commentKey = dataSnapshot.getKey();
+                int commentIndex = mCommentIds.indexOf(commentKey);
 
+                if (commentIndex > -1) {
+                    // Replace with the new data
+                    mComments.set(commentIndex, movedComment);
+                    // Update the RecyclerView
+                    notifyItemChanged(commentIndex);
+                    Log.d(CommentActivity.LOG_TAG, "CommentKey" + commentKey);
+                }
                 // ...
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "postComments:onCancelled", databaseError.toException());
+                Log.w(CommentActivity.LOG_TAG, "postComments:onCancelled", databaseError.toException());
                 Toast.makeText(mContext, "Failed to load comments.",
+
                         Toast.LENGTH_SHORT).show();
             }
         };

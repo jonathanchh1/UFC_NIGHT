@@ -11,12 +11,11 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 
 public class FacebookLoginActivity extends BaseActivity {
 
     // [END declare_auth]
-    public static final String getToken = "token";
     private static final String TAG = FacebookLoginActivity.class.getSimpleName();
     private LoginButton mLoginButton;
     // [START declare_auth]
@@ -38,9 +37,7 @@ public class FacebookLoginActivity extends BaseActivity {
             @Override
             public void onSuccess(final LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                //    handleFacebookAccessToken(loginResult.getAccessToken());
                 Intent intent = new Intent(FacebookLoginActivity.this, MainActivity.class);
-                intent.putExtra(getToken, loginResult.getAccessToken());
                 startActivity(intent);
             }
 
@@ -62,7 +59,7 @@ public class FacebookLoginActivity extends BaseActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //  FirebaseUser currentUser = mAuth.getCurrentUser();
         // updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -75,7 +72,6 @@ public class FacebookLoginActivity extends BaseActivity {
         // Pass the activity result back to the Facebook SDK
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    // [END on_activity_result]
 
 
     //  public void signOut() {
