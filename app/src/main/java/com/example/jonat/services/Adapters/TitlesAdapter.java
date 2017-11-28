@@ -117,7 +117,6 @@ public class TitlesAdapter extends RecyclerView.Adapter<TitlesAdapter.TitleViewH
         ImageView thumbnail;
         TextView description;
         ImageButton shareButton;
-        ImageButton FavoriteButton;
         View mView;
 
 

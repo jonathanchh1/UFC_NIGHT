@@ -64,4 +64,6 @@
     <string name="hint_password">Password</string>
     <string name="facebook_app_id">1873419012973955</string>
     <string name="authorName">Author Name</string>
+    <string name="facebook_logout">Log Out</string>
+    <string name="logout_info">Log out of UFC Crane</string>
 </resources>

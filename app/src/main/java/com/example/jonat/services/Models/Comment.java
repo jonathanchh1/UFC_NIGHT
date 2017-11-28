@@ -12,11 +12,14 @@ public class Comment {
     public String UserImage;
 
 
-    public Comment(String uid, String author, String text, String userImage) {
+    public Comment(String uid, String author, String text) {
         this.uid = uid;
         this.author = author;
         this.text = text;
-        this.UserImage = userImage;
+    }
+
+    public Comment() {
+
     }
 
     public String getAuthor() {

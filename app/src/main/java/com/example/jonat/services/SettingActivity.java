@@ -15,6 +15,9 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
+
 public class SettingActivity extends AppCompatPreferenceActivity {
 
     @Override
@@ -91,6 +94,24 @@ public class SettingActivity extends AppCompatPreferenceActivity {
                 }
             });
 
+
+            final Preference logout = findPreference(getString(R.string.facebook_logout));
+            logout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Logout();
+                    return true;
+                }
+            });
+
+        }
+
+        private void Logout() {
+            if (AccessToken.getCurrentAccessToken() != null) {
+                LoginManager.getInstance().logOut();
+                LoginManager.getInstance().
+                        startActivity(new Intent(getActivity(), FacebookLoginActivity.class));
+            }
         }
 
         private void bindPreferenceSummaryToValue(Preference preference) {

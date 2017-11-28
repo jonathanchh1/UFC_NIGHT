@@ -26,12 +26,12 @@
             android:layout_marginBottom="60dp"
             android:src="@mipmap/ic_launcher" />
 
-
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/facebook_login"
+            android:id="@+id/mfacebook_button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
+
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -58,5 +58,10 @@
                 android:action="android.intent.action.VIEW"
                 android:data="@string/url_terms" />
         </Preference>
+
+        <Preference
+            android:key="@string/facebook_logout"
+            android:summary="@string/facebook_logout"
+            android:title="@string/facebook_logout" />
     </PreferenceCategory>
 </PreferenceScreen>
