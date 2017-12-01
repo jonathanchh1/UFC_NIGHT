@@ -13,7 +13,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="logo">90dp</dimen>
     <dimen name="card_height">304dp</dimen>
-    <dimen name="text_title">40dp</dimen>
+    <dimen name="text_title">55dp</dimen>
     <dimen name="image_button_size">48dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
     <dimen name="image_view_height">205dp</dimen>

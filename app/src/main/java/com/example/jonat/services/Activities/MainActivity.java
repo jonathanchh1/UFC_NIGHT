@@ -1,4 +1,4 @@
-package com.example.jonat.services;
+package com.example.jonat.services.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.example.jonat.services.Fragments.EventFragment;
 import com.example.jonat.services.Fragments.FightersFragment;
 import com.example.jonat.services.Fragments.MediasFragment;
 import com.example.jonat.services.Fragments.TitleholdersFragment;
+import com.example.jonat.services.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -50,9 +51,12 @@ public class MainActivity extends BaseActivity {
         ViewPager viewPager = findViewById(R.id.tabspager);
         setupWithViewPager(viewPager);
 
+        Intent intent = new Intent(getApplicationContext(), GoogleSignInActivity.class);
+        startActivity(intent);
         //Set Tabs inside Toolbar
         TabLayout mTabs = findViewById(R.id.tabs);
         mTabs.setupWithViewPager(viewPager);
+
 
         mAuth = FirebaseAuth.getInstance();
         //set icon tabs
@@ -71,16 +75,15 @@ public class MainActivity extends BaseActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d(LOG_TAG, "Log in " + user.getUid());
+                    Log.d(LOG_TAG, "Log in: " + user.getUid());
                 } else {
-                    Log.d(LOG_TAG, "Not Logged In" + user.getUid());
+                    Log.d(LOG_TAG, "Logged out");
                 }
             }
         };
 
 
     }
-
 
     @Override
     protected void onStart() {

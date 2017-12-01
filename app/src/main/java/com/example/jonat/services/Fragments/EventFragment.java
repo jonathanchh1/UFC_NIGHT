@@ -20,10 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.jonat.services.Activities.EventDetailActivity;
 import com.example.jonat.services.Adapters.EventAdapter;
 import com.example.jonat.services.ApiClient;
 import com.example.jonat.services.ApiInterface;
-import com.example.jonat.services.DetailActivity;
 import com.example.jonat.services.Models.Events;
 import com.example.jonat.services.R;
 import com.example.jonat.services.data.UFCContract;
@@ -92,11 +92,24 @@ public class EventFragment extends Fragment {
         progressBar = rootView.findViewById(R.id.progress_bar);
 
         mCallback();
-        fetchEvent(mSortBy);
 
+        if (savedInstanceState != null) {
+            if (savedInstanceState.containsKey(EVENTS)) {
+                mSortBy = savedInstanceState.getString(EVENTS);
+            }
+
+            if (savedInstanceState.containsKey(EVENTS)) {
+                items = savedInstanceState.getParcelableArrayList(EVENTS);
+                mAdapter.setData(items);
+            } else {
+                fetchEvent(mSortBy);
+            }
+        } else {
+            fetchEvent(mSortBy);
+        }
         return rootView;
-
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -105,8 +118,6 @@ public class EventFragment extends Fragment {
         MenuItem search = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
         search(searchView);
-
-
         switch (mSortBy) {
             case EVENTS:
                 menu.findItem(R.id.sort_by_events).setChecked(true);
@@ -142,7 +153,6 @@ public class EventFragment extends Fragment {
 
     private void search(SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -195,8 +205,8 @@ public class EventFragment extends Fragment {
 
             @Override
             public void onItemCompleted(Events items, int position) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(DetailActivity.Args, items);
+                Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                intent.putExtra(EventDetailActivity.Args, items);
                 startActivity(intent);
 
             }

@@ -61,7 +61,6 @@
 
         <Preference
             android:key="@string/facebook_logout"
-            android:summary="@string/facebook_logout"
             android:title="@string/facebook_logout" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -1,9 +1,11 @@
-package com.example.jonat.services;
+package com.example.jonat.services.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class DetailActivity extends AppCompatActivity {
+import com.example.jonat.services.R;
+
+public class EventDetailActivity extends AppCompatActivity {
 
     public static final String Args = "arguments";
 

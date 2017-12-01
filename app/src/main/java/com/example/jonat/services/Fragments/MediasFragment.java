@@ -18,10 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.jonat.services.Activities.EventDetailActivity;
 import com.example.jonat.services.Adapters.MediaAdapter;
 import com.example.jonat.services.ApiClient;
 import com.example.jonat.services.ApiInterface;
-import com.example.jonat.services.DetailActivity;
 import com.example.jonat.services.Models.Medias;
 import com.example.jonat.services.R;
 import com.example.jonat.services.data.UFCContract;
@@ -113,7 +113,7 @@ public class MediasFragment extends Fragment {
             public void onResponse(Call<List<Medias>> call, Response<List<Medias>> response) {
                 int statusCode = response.code();
                 items = response.body();
-                recyclerView.setAdapter(mAdapter = new MediaAdapter(items, R.layout.content_container, getActivity(), mCallbacks));
+                recyclerView.setAdapter(mAdapter = new MediaAdapter(items, R.layout.content_media, getActivity(), mCallbacks));
                 progressBar.setVisibility(View.INVISIBLE);
 
             }
@@ -180,8 +180,8 @@ public class MediasFragment extends Fragment {
 
             @Override
             public void onItemCompleted(Medias items, int position) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(DetailActivity.Args, items);
+                Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                intent.putExtra(EventDetailActivity.Args, items);
                 startActivity(intent);
 
             }

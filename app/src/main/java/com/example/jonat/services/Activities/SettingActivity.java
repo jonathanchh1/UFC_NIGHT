@@ -1,4 +1,4 @@
-package com.example.jonat.services;
+package com.example.jonat.services.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +15,12 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
+import com.example.jonat.services.AppCompatPreferenceActivity;
+import com.example.jonat.services.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingActivity extends AppCompatPreferenceActivity {
 
@@ -43,6 +47,8 @@ public class SettingActivity extends AppCompatPreferenceActivity {
          * A preference value change listener that updates the preference's summary
          * to reflect its new value.
          */
+        private GoogleSignInClient mGoogleSignInClient;
+        private FirebaseAuth mAuth;
         private Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -82,7 +88,16 @@ public class SettingActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_main);
 
+            mAuth = FirebaseAuth.getInstance();
             // notification preference change listener
+            // Configure Google Sign In
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+            // [END config_signin]
+
+            mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_notifications_new_message_ringtone)));
 
             // feedback preference click listener
@@ -107,11 +122,9 @@ public class SettingActivity extends AppCompatPreferenceActivity {
         }
 
         private void Logout() {
-            if (AccessToken.getCurrentAccessToken() != null) {
-                LoginManager.getInstance().logOut();
-                LoginManager.getInstance().
-                        startActivity(new Intent(getActivity(), FacebookLoginActivity.class));
-            }
+            mAuth.signOut();
+            mGoogleSignInClient.signOut();
+            startActivity(new Intent(getActivity(), GoogleSignInActivity.class));
         }
 
         private void bindPreferenceSummaryToValue(Preference preference) {

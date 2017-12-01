@@ -21,14 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FacebookLoginActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity" />
+        <activity android:name=".Activities.EventDetailActivity" />
 
         <provider
             android:name=".data.UFCProvider"
@@ -38,7 +38,7 @@
             android:protectionLevel="signature"
             android:syncable="true" />
 
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".Activities.SettingActivity" />
         <!-- Facebook Configuration -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -52,7 +52,10 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Activities.GoogleSignInActivity" />
+        <activity android:name=".Activities.FightersDetailActivity" />
+        <activity android:name=".Activities.MediaDetailActivity" />
+        <activity android:name=".Activities.DetailTitleholderActivity"></activity>
     </application>
 
 </manifest>

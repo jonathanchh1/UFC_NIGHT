@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.jonat.services.Activities.EventDetailActivity;
 import com.example.jonat.services.Adapters.FightersAdapter;
 import com.example.jonat.services.ApiClient;
 import com.example.jonat.services.ApiInterface;
-import com.example.jonat.services.DetailActivity;
 import com.example.jonat.services.Models.Fighters;
 import com.example.jonat.services.R;
 
@@ -105,8 +105,8 @@ public class FightersFragment extends Fragment {
 
             @Override
             public void onItemCompleted(Fighters items, int position) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(DetailActivity.Args, items);
+                Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+                intent.putExtra(EventDetailActivity.Args, items);
                 startActivity(intent);
 
             }

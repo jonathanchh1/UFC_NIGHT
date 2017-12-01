@@ -66,4 +66,5 @@
     <string name="authorName">Author Name</string>
     <string name="facebook_logout">Log Out</string>
     <string name="logout_info">Log out of UFC Crane</string>
+    <string name="sign_out">sign_out</string>
 </resources>
